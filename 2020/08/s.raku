@@ -39,11 +39,9 @@ multi MAIN(Str:D $f where *.IO.e) {
     for ^$m.elems -> $i {
         next if $m[$i]<op> eq 'acc';
 
-        my Array $tm .= new;
-        $tm[$_] = (op => $m[$_]<op>, number => $m[$_]<number>).Hash for ^$m.elems;
-
-        $tm[$i]<op> = $tm[$i]<op> eq 'nop' ?? 'jmp' !! 'nop';
-        run($tm, my UInt $pc = 0, my Int $ac = 0, my Set $rec .= new);
+        temp $m[$i]<op>;
+        $m[$i]<op> = $m[$i]<op> eq 'nop' ?? 'jmp' !! 'nop';
+        run($m, my UInt $pc = 0, my Int $ac = 0, my Set $rec .= new);
 
         { put "part 2: $ac"; last } if $pc ≥ $m.elems;
     }
