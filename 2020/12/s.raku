@@ -6,11 +6,6 @@ grammar Action {
     token number { \d+ }
 }
 
-sub parse-action(Str:D $s --> Hash) {
-    my $m = Action.parse($s);
-    { move => ~$m<move>, number => ~$m<number> };
-}
-
 sub move-p1(Int:D $x is rw, Int:D $y is rw, UInt:D $degree is rw, Hash:D $action) {
     given $action<move> {
         when 'N' { $y += $action<number> }
@@ -46,7 +41,7 @@ sub move-p2(Int:D $x is rw, Int:D $y is rw, Int:D $wx is rw, Int:D $wy is rw, Ha
 }
 
 sub MAIN(Str:D $f where *.IO.e) {
-    my @actions = $f.IO.lines».&parse-action;
+    my @actions = $f.IO.lines».&{ my $m = Action.parse($_); { move => ~$m<move>, number => ~$m<number> } };
     my Int ($x, $y, $degree, $wx, $wy);
 
     ($x, $y, $degree) = (0, 0, 0);
