@@ -31,8 +31,8 @@ sub move-p2(Int:D $x is rw, Int:D $y is rw, Int:D $wx is rw, Int:D $wy is rw, Ha
         when 'S' { $wy -= $action<number> }
         when 'E' { $wx += $action<number> }
         when 'W' { $wx -= $action<number> }
-        when 'L' { ($wx, $wy) = ((i, -1, -i, 1)[$action<number> / 90 - 1] * ($wx + $wy * i)).reals».Int }
-        when 'R' { ($wx, $wy) = ((-i, -1, i, 1)[$action<number> / 90 - 1] * ($wx + $wy * i)).reals».Int }
+        when 'L' { ($wx, $wy) = ((i, -1, -i)[$action<number> / 90 - 1] * ($wx + $wy * i)).reals».Int }
+        when 'R' { ($wx, $wy) = ((-i, -1, i)[$action<number> / 90 - 1] * ($wx + $wy * i)).reals».Int }
         when 'F' {
             $x += $action<number> * $wx;
             $y += $action<number> * $wy;
