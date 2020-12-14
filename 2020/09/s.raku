@@ -1,5 +1,7 @@
 #!/bin/env raku
 
+# puzzle: https://adventofcode.com/2020/day/9
+
 sub find-it(Array:D $a, UInt:D $prem --> UInt) {
     for 0 ..^ $a.elems-$prem -> $i {
         last unless any($a[$i .. $i+$prem-1].combinations(2).map({.[0]+.[1]})) == $a[$i+$prem];
