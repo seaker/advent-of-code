@@ -2,7 +2,7 @@
 
 grammar Action {
     token TOP    { <move> <number> }
-    token move   { 'N' | 'S' | 'E' | 'W' | 'L' | 'R' | 'F' }
+    token move   { <[NSEWLRF]> }
     token number { \d+ }
 }
 
