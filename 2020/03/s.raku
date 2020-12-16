@@ -1,5 +1,7 @@
 #!/bin/env raku
 
+# puzzle: https://adventofcode.com/2020/day/3
+
 sub count-trees(Array:D @M, UInt:D $x, UInt:D $y) {
     ((0, *+$y ...^ { $_ ≥ @M.elems }) Z (0, *+$x ... *)).map({ @M[.[0]][.[1] % @M[0].elems] }).grep('#').elems;
 }
