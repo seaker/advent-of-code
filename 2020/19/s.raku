@@ -64,7 +64,7 @@ grammar Day19-P1 {
 	regex rx29 { <rx127> <rx62> | <rx40> <rx61> }
 	regex rx70 { <rx127> <rx95> }
 	regex rx99 { <rx90> <rx127> | <rx61> <rx40> }
-	token rx127 { 'b' }
+	regex rx127 { 'b' }
 	regex rx124 { <rx15> <rx127> | <rx120> <rx40> }
 	regex rx48 { <rx40> <rx65> | <rx127> <rx50> }
 	regex rx74 { <rx50> <rx127> | <rx61> <rx40> }
@@ -119,7 +119,7 @@ grammar Day19-P1 {
 	regex rx58 { <rx50> <rx127> | <rx126> <rx40> }
 	regex rx15 { <rx23> <rx127> | <rx87> <rx40> }
 	regex rx68 { <rx1> <rx40> | <rx28> <rx127> }
-	token rx40 { 'a' }
+	regex rx40 { 'a' }
 	regex rx119 { <rx65> <rx40> | <rx50> <rx127> }
 	regex rx12 { <rx40> <rx33> | <rx127> <rx56> }
 	regex rx118 { <rx57> <rx127> | <rx35> <rx40> }
@@ -198,7 +198,7 @@ grammar Day19-P2 {
 	regex rx29 { <rx127> <rx62> | <rx40> <rx61> }
 	regex rx70 { <rx127> <rx95> }
 	regex rx99 { <rx90> <rx127> | <rx61> <rx40> }
-	token rx127 { 'b' }
+	regex rx127 { 'b' }
 	regex rx124 { <rx15> <rx127> | <rx120> <rx40> }
 	regex rx48 { <rx40> <rx65> | <rx127> <rx50> }
 	regex rx74 { <rx50> <rx127> | <rx61> <rx40> }
@@ -253,7 +253,7 @@ grammar Day19-P2 {
 	regex rx58 { <rx50> <rx127> | <rx126> <rx40> }
 	regex rx15 { <rx23> <rx127> | <rx87> <rx40> }
 	regex rx68 { <rx1> <rx40> | <rx28> <rx127> }
-	token rx40 { 'a' }
+	regex rx40 { 'a' }
 	regex rx119 { <rx65> <rx40> | <rx50> <rx127> }
 	regex rx12 { <rx40> <rx33> | <rx127> <rx56> }
 	regex rx118 { <rx57> <rx127> | <rx35> <rx40> }
