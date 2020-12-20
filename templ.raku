@@ -2,7 +2,8 @@
 
 multi MAIN('test') {
     use Test;
-    plan 1;
+
+    done-testing;
 }
 
 multi MAIN('try') {
