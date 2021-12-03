@@ -5,17 +5,17 @@ multi MAIN('1', Str:D $f where *.IO.e = 'input.txt') {
     my $width = $n[0].elems;
     my $size  = $n.elems;
 
-    my UInt $g = ([~] (^$width).map(-> $i { $n.map(*[$i]).sum * 2 > $size ?? 1 !! 0 })).parse-base(2);
+    my UInt $g = ([~] (^$width).map({ $n[*;$^i].sum * 2 > $size ?? 1 !! 0 })).parse-base(2);
 
     put 'part 1: ', $g * (2**$width - 1 - $g);
 }
 
 sub most-bit(Array:D $n, UInt:D $pos --> UInt:D) {
-    $n.map(*[$pos]).sum * 2 ≥ $n.elems ?? 1 !! 0
+    $n[*;$pos].sum * 2 ≥ $n.elems ?? 1 !! 0
 }
 
 sub least-bit(Array:D $n, UInt:D $pos --> UInt:D) {
-    $n.map(*[$pos]).sum * 2 ≥ $n.elems ?? 0 !! 1
+    $n[*;$pos].sum * 2 ≥ $n.elems ?? 0 !! 1
 }
 
 multi MAIN('2', Str:D $f where *.IO.e = 'input.txt') {
