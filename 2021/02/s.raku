@@ -3,7 +3,7 @@
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
     my ($x, $aim, $y) X= 0;
 
-    for $f.IO.lines».words -> ($action, $dist) {
+    for $f.IO.words -> $action, $dist {
         given $action {
             when 'up'      { $aim -= $dist; }
             when 'down'    { $aim += $dist; }
