@@ -1,7 +1,7 @@
 #!/bin/env raku
 
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
-    my $segments = $f.IO.lines».&{ [(.words[0,2]».&{ .split(',')».UInt }).flat] };
+    my $segments = $f.IO.lines».&{ [ .comb(/\d+/)».UInt ] };
     my UInt %h;
 
     for @$segments -> $seg {
