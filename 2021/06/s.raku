@@ -13,6 +13,6 @@ multi lattern(UInt:D $n) {
 }
 
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
-    put 'part 1: ', $f.IO.words[0].split(',')».UInt».&{ lattern( 80 - $_) }.sum;
-    put 'part 2: ', $f.IO.words[0].split(',')».UInt».&{ lattern(256 - $_) }.sum;
+    put 'part 1: ', $f.IO.slurp.split(',')».&{ lattern( 80 - $_) }.sum;
+    put 'part 2: ', $f.IO.slurp.split(',')».&{ lattern(256 - $_) }.sum;
 }
