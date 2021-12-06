@@ -6,10 +6,8 @@ multi lattern(0)                     { 1 }
 multi lattern(UInt:D $n where 1≤*≤7) { 2 }
 multi lattern(8)                     { 3 }
 multi lattern(UInt:D $n) {
-	return @latterns[$n] if @latterns[$n].defined;
-
-	@latterns[$n] = lattern($n-7) + lattern($n-9);
-	@latterns[$n]
+    return @latterns[$n] if @latterns[$n].defined;
+    @latterns[$n] = lattern($n-7) + lattern($n-9)
 }
 
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
