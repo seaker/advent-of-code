@@ -1,16 +1,13 @@
 #!/bin/env raku
 
-my @latterns;
-
-multi lattern(0)                     { 1 }
-multi lattern(UInt:D $n where 1≤*≤7) { 2 }
-multi lattern(8)                     { 3 }
-multi lattern(UInt:D $n) {
-    return @latterns[$n] if @latterns[$n].defined;
-    @latterns[$n] = lattern($n-7) + lattern($n-9)
+sub lattern(UInt:D $n) {
+    state @latterns = 1, |(2 xx 7), 3;
+    @latterns[$n] = lattern($n-7) + lattern($n-9) unless @latterns[$n].defined;
+    @latterns[$n]
 }
 
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
-    put 'part 1: ', $f.IO.slurp.split(',')».&{ lattern( 80 - $_) }.sum;
-    put 'part 2: ', $f.IO.slurp.split(',')».&{ lattern(256 - $_) }.sum;
+    my @n = $f.IO.slurp.split(',');
+    put 'part 1: ', @n».&{ lattern( 80 - $_) }.sum;
+    put 'part 2: ', @n».&{ lattern(256 - $_) }.sum;
 }
