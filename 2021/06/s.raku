@@ -1,9 +1,9 @@
 #!/bin/env raku
 
-sub lattern(UInt:D $n) {
+sub lattern(UInt:D \n --> UInt:D) {
     state @latterns = 1, |(2 xx 7), 3;
-    @latterns[$n] = lattern($n-7) + lattern($n-9) unless @latterns[$n].defined;
-    @latterns[$n]
+    @latterns[n] = lattern(n-7) + lattern(n-9) unless @latterns[n].defined;
+    @latterns[n]
 }
 
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
