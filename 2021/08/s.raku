@@ -37,11 +37,7 @@ sub solve(Array:D $in --> Hash:D) {
     %$res
 }
 
-multi MAIN('try') {
-    solve(<be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb>.Array);
-}
-
-multi MAIN(Str:D $f where *.IO.e = 'input.txt') {
+sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
     my Array $data .= new;
     for $f.IO.lines».split('|') -> ($i, $o) {
         $data.push([[$i.words], [$o.words]]);
