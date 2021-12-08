@@ -6,6 +6,7 @@ sub solve(Array:D $in --> Hash:D) {
     $in.grep(*.chars == 3|4|7).map(-> $w { $w.comb».&{ %cnts_478{$_}++ } });
 
     my Hash $res .= new;
+
     for %cnts_all.kv -> $key, $value {
         $res{$key} = do given $value {
             when 4 { 'e' }
@@ -26,11 +27,7 @@ sub solve(Array:D $in --> Hash:D) {
 }
 
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
-    my Array $data .= new;
-    for $f.IO.lines».split('|') -> ($i, $o) {
-        $data.push([[$i.words], [$o.words]]);
-    }
-
+    my $data .= push([[.[0].words], [.[1].words]]) for $f.IO.lines».split('|');
     put 'part 1: ', $data.map({ .[1].grep(*.chars == 2|3|4|7).elems }).sum;
 
     my %digits = abcefg => 0, cf     => 1, acdeg => 2, acdfg   => 3, bcdf   => 4,
