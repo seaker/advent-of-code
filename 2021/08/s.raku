@@ -5,10 +5,10 @@ sub solve(Array:D $in --> Hash:D) {
     $in.map(-> $w { $w.comb».&{ %cnts_all{$_}++ } });
     $in.grep(*.chars == 3|4|7).map(-> $w { $w.comb».&{ %cnts_478{$_}++ } });
 
-    my Hash $res .= new;
+    my %res;
 
     for %cnts_all.kv -> $key, $value {
-        $res{$key} = do given $value {
+        %res{$key} = do given $value {
             when 4 { 'e' }
             when 6 { 'b' }
             when 7 { given %cnts_478{$key} {
@@ -23,7 +23,7 @@ sub solve(Array:D $in --> Hash:D) {
         }
     }
 
-    %$res
+    %res
 }
 
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
