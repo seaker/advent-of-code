@@ -16,10 +16,7 @@ sub closing(Array:D $d --> Str:D) {
 
 sub score-p2(Str:D $s --> UInt:D) {
     state %cscore = @opening Z=> 1..4;
-    my UInt $score = 0;
-    $score = $score * 5 + %cscore{$_} for $s.comb;
-
-    $score
+    (0, |$s.comb.map({ %cscore{$_} })).reduce({ $^a * 5 + $^b })
 }
 
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
