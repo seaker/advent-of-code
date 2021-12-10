@@ -2,7 +2,6 @@
 
 my @opening = |< ( [ { >, '<';
 my @closing = |< ) ] } >, '>';
-my %mapping = @opening «=>» @closing;
 my %rev-map = @closing «=>» @opening;
 
 sub illegal-closing(Array:D $d --> Str:D) {
@@ -15,23 +14,22 @@ sub illegal-closing(Array:D $d --> Str:D) {
     ' '
 }
 
-sub score-p2(Str:D $s --> UInt:D) {
-    state %cscore = @closing Z=> 1..4;
-
+sub score-p2(Array:D $s --> UInt:D) {
+    state %cscore = @opening Z=> 1..4;
     my UInt $score = 0;
-    $score = $score * 5 + %cscore{$_} for $s.comb;
+    $score = $score * 5 + %cscore{$_} for |$s;
 
     $score
 }
 
-sub closing(Array:D $d --> Str:D) {
+sub closing(Array:D $d --> Array:D) {
     my @stack;
     for |$d -> $c { given $c {
         when @opening.any { @stack.push($c) }
         when @closing.any { @stack.pop }
     } }
 
-    @stack.join.flip.trans(%mapping)
+    @stack.reverse.Array
 }
 
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
