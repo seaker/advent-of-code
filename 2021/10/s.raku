@@ -1,7 +1,7 @@
 #!/bin/env raku
 
-my @opening = |< ( [ { >, '<';
-my @closing = |< ) ] } >, '>';
+my @opening = '([{<'.comb;
+my @closing = ')]}>'.comb;
 my %rev-map = @closing «=>» @opening;
 
 sub closing(Array:D $d --> Str:D) {
