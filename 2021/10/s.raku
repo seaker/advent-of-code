@@ -25,6 +25,6 @@ sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
     my %scores-p1 = @closing Z=> 3, 57, 1197, 25137;
     put 'part 1: ', $data.map({ %scores-p1{closing($_)} // 0 }).sum;
 
-    my @scores-p2 = $data.map({ my $s = closing($_); score-p2($s) if $s.chars > 1 });
+    my @scores-p2 = $data.map({ my $s = closing($_); score-p2($s) if $s.comb[0] ∈  @opening });
     put 'part 2: ', @scores-p2.sort[@scores-p2.elems div 2];
 }
