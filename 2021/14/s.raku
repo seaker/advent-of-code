@@ -1,6 +1,6 @@
 #!/bin/env raku
 
-sub solve(Array:D \poly, Hash:D \rules, UInt:D \rounds) {
+sub solve(Array:D \poly, Hash:D \rules, UInt:D \rounds --> UInt:D) {
     my %ccnts;
     ++%ccnts{ poly[$_] ~ poly[$_+1] } for ^(poly.elems-1);
 
