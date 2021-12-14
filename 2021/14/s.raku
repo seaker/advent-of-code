@@ -21,9 +21,10 @@ sub solve(Array:D \poly, Hash:D \rules, UInt:D \rounds) {
 }
 
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
-    my Hash $rules .= new;
-    my (Array \poly) = $f.IO.slurp.split("\n\n").map(->\p,\r { r.lines.map({ $rules{.words[0]} = .words[2] }); [p.comb] });
+    my (Array \poly, Hash \rules) = $f.IO.slurp.split("\n\n").map(->\p,\r {
+        |( [p.comb], %( r.lines.map({ .words[0] => .words[2] }) ) )
+    });
 
-    put 'part 1: ', solve(poly, $rules, 10);
-    put 'part 2: ', solve(poly, $rules, 40);
+    put 'part 1: ', solve(poly, rules, 10);
+    put 'part 2: ', solve(poly, rules, 40);
 }
