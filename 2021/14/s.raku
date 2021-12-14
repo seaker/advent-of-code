@@ -4,7 +4,6 @@ sub solve(Array:D \poly, Hash:D \rules, UInt:D \rounds) {
     my %ccnts;
     ++%ccnts{ poly[$_] ~ poly[$_+1] } for ^(poly.elems-1);
 
-    #for ^rounds -> $i {
     for ^rounds {
         my %new-ccnts;
         for rules.kv -> \k,\v {
