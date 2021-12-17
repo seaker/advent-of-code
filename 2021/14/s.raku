@@ -1,6 +1,8 @@
 #!/bin/env raku
 
 sub solve(Array:D \poly, Hash:D \rules, UInt:D \rounds --> UInt:D) {
+    my %cnts = poly[0] => 1, poly[*-1] => 1;
+
     my %ccnts;
     ++%ccnts{ poly[$_] ~ poly[$_+1] } for ^(poly.elems-1);
 
@@ -13,11 +15,9 @@ sub solve(Array:D \poly, Hash:D \rules, UInt:D \rounds --> UInt:D) {
         }
         %ccnts = %new-ccnts;
     }
-
-    my %cnts;
     %ccnts.kv.map(->\k,\v { k.comb».&{ %cnts{$_} += v // 0; } });
 
-    [-] %cnts.values.map({ ($_+1) div 2 }).sort[*-1, 0]
+    [-] %cnts.values.map({ $_ div 2 }).sort[*-1, 0]
 }
 
 sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
