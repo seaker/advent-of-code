@@ -50,8 +50,8 @@ class PacketActions {
 
     method body:sym<sum>($/)  { make %(versum => $<packet>.map({ .made<versum> }).sum, value => [+]   $<packet>.map({ .made<value> })) }
     method body:sym<prod>($/) { make %(versum => $<packet>.map({ .made<versum> }).sum, value => [*]   $<packet>.map({ .made<value> })) }
-    method body:sym<min>($/)  { make %(versum => $<packet>.map({ .made<versum> }).sum, value => $<packet>.map({ .made<value> }).min) }
-    method body:sym<max>($/)  { make %(versum => $<packet>.map({ .made<versum> }).sum, value => $<packet>.map({ .made<value> }).max) }
+    method body:sym<min>($/)  { make %(versum => $<packet>.map({ .made<versum> }).sum, value => [min] $<packet>.map({ .made<value> })) }
+    method body:sym<max>($/)  { make %(versum => $<packet>.map({ .made<versum> }).sum, value => [max] $<packet>.map({ .made<value> })) }
     method body:sym<gt>($/)   { make %(versum => $<packet>.map({ .made<versum> }).sum, value => +[>]  $<packet>.map({ .made<value> })) }
     method body:sym<lt>($/)   { make %(versum => $<packet>.map({ .made<versum> }).sum, value => +[<]  $<packet>.map({ .made<value> })) }
     method body:sym<eq>($/)   { make %(versum => $<packet>.map({ .made<versum> }).sum, value => +[==] $<packet>.map({ .made<value> })) }
