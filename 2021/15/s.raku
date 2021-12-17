@@ -5,8 +5,8 @@ sub dijkstra-d15(Array:D \n, UInt:D \max-row, UInt:D \max-col, Str:D \src, Str \
 
     $Q.set(src);
     my $qcnt = max-row * max-col - 1;
-
     %dist{src} = 0;
+
     while $qcnt > 0 {
         my ($u, $min-v) = ('', ∞);
         for $Q.keys -> \k {
@@ -30,9 +30,7 @@ sub dijkstra-d15(Array:D \n, UInt:D \max-row, UInt:D \max-col, Str:D \src, Str \
             $Q.set(v) if !$Q{v} && !%dist{v}.defined;
 
             my Real \d = %dist{$u} + n[row;col];
-            if d < (%dist{v} // ∞) {
-                %dist{v} = d;
-            }
+            %dist{v} = d if d < (%dist{v} // ∞);
         }
     }
 
@@ -59,7 +57,6 @@ sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
             @n2[row].push(|(@n[row].map({ ($_+$i-1) mod 9 + 1 })));
         }
     }
-
     for 1..4 -> $i {
         for ^max-row -> \row {
             @n2[$i*max-row + row] = @n2[row].map({ ($_+$i-1) mod 9 + 1 });
