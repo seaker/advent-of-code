@@ -7,8 +7,14 @@ sub MAIN(Str:D $f where *.IO.e = 'input.txt') {
     my $round = 0;
     loop {
         my Bool $moved = False;
-        (^rows X ^cols).grep({ @cumbers[.[0];.[1]] eq '>' and @cumbers[.[0];(.[1]+1) mod cols] eq '.' }).eager.map({ @cumbers[.[0];.[1]] = '.'; @cumbers[.[0];(.[1]+1) mod cols] = '>'; $moved = True; });
-        (^rows X ^cols).grep({ @cumbers[.[0];.[1]] eq 'v' and @cumbers[(.[0]+1) mod rows;.[1]] eq '.' }).eager.map({ @cumbers[.[0];.[1]] = '.'; @cumbers[(.[0]+1) mod rows;.[1]] = 'v'; $moved = True; });
+        (^rows X ^cols)
+            .grep({ @cumbers[.[0];.[1]] eq '>' and @cumbers[.[0];(.[1]+1) mod cols] eq '.' })
+            .eager
+            .map({ @cumbers[.[0]; .[1], (.[1]+1) mod cols] = ('.', '>'); $moved = True; });
+        (^rows X ^cols)
+            .grep({ @cumbers[.[0];.[1]] eq 'v' and @cumbers[(.[0]+1) mod rows;.[1]] eq '.' })
+            .eager
+            .map({ @cumbers[.[0], (.[0]+1) mod rows; .[1]] = <. v>; $moved = True; });
 
         ++$round;
         last unless $moved;
