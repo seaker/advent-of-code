@@ -13,7 +13,7 @@ for $f.IO.lines -> \line {
             when 'do()'    { $enabled = True; }
             when "don't()" { $enabled = False; }
             default {
-                with ~$m[0] * ~$m[1] -> \prod {
+                with $m[0] * $m[1] -> \prod {
                     $sum-p1 += prod;
                     $sum-p2 += prod if $enabled;
                 }
