@@ -12,5 +12,5 @@ put 'part 1: ', $cnt-p1;
 put 'part 2: ', $cnt-p2;
 
 my method safe(*@a : --> Bool:D) {
-    so -3 ≤ $_ < 0 || 0 < $_ ≤ 3 with all(@a.head(*-1) Z- @a.tail(*-1))
+    so -3 ≤ $_ < 0 || 0 < $_ ≤ 3 with all(@a[0..*-2] «-« @a[1..*])
 }
