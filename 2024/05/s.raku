@@ -5,13 +5,13 @@ my $f = $f_ // 'input.txt';
 
 my (\s1, \s2) = $f.IO.slurp.split("\n\n");
 my %rules;
-s1.lines.map({ .comb(/\d+/).Array }).map({ %rules{.[0]}.push: .[1] });
+s1.lines.map({ %rules{.[0]}.push(.[1]) with .comb(/\d+/) });
 
 my ($sum-p1, $sum-p2) X= 0;
 
 check-update:
 for s2.lines».comb(/\d+/) -> @pages {
-    for ^+@pages -> $i {
+    for 1..^+@pages -> $i {
         for (%rules{@pages[$i]} // []).Array -> $p2 {
             if $i > (@pages.first($p2, :k) // Inf) {
                 $sum-p2 += @pages.sort({ !%rules{$^a}.grep($^b) })[+@pages/2];
