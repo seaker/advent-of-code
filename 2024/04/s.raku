@@ -20,11 +20,10 @@ my $cnt-p2 = 0;
 put 'part 2: ', $cnt-p2;
 
 sub its-xmas-p1($s --> Bool:D) {
-    so 'XMAS' eq $s|$s.flip
+    so $s eq 'XMAS'|'SAMX'
 }
 
 sub its-xmas-p2(\row, \col --> Bool:D) {
-    my ($s, $t) = @m[row;col]   ~ @m[row+1;col+1] ~ @m[row+2;col+2],
-                  @m[row;col+2] ~ @m[row+1;col+1] ~ @m[row+2;col];
-    so 'MAS' eq ($s|$s.flip)&($t|$t.flip)
+    return False unless @m[row+1;col+1] eq 'A';
+    so ('MS'|'SM') eq (@m[row;col] ~ @m[row+2;col+2]) & (@m[row;col+2] ~ @m[row+2;col])
 }
