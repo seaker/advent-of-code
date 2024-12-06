@@ -14,16 +14,17 @@ my %new-obstacles is SetHash;
 for ^rows -> \row {
     print "{row}\r";
     for ^cols -> \col {
+        my $pos = col+row*i;
+
         next unless @m[row;col] eq '.';
-        next unless %walked{col+row*i}.any;
+        next unless %walked{$pos}.any;
 
         @m[row;col] = '#';
-        my $pos = col+row*i;
         my $delta = %walked{$pos}[0];
-        my %walked_ = walk(@m, $pos-$delta, $delta);
+        my $len = +walk(@m, $pos-$delta, $delta);
         @m[row;col] = '.';
 
-        %new-obstacles.set($pos) if +%walked_ == 0;
+        %new-obstacles.set($pos) if $len == 0;
     }
 }
 put 'part 2: ', +%new-obstacles;
@@ -44,7 +45,7 @@ sub walk(@m, Complex:D $pos is copy, Complex:D $delta is copy) {
             $delta *= i;
         } else {
             return ().SetHash if %walked_{$pos}.grep($delta);
-            %walked_{$pos.Complex}.push($delta);
+            %walked_{$pos}.push($delta);
         }
     }
     %walked_
