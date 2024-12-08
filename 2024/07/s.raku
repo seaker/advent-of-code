@@ -3,12 +3,7 @@
 unit sub MAIN(Str $f_?);
 my $f = $f_ // 'input.txt';
 
-my @all;
-for $f.IO.lines».comb(/\d+/) -> @a is copy {
-    my $t = shift @a;
-    @all.push([$t, @a],);
-}
-
+my @all = $f.IO.lines».comb(/\d+/).map(-> @a { [@a[0], @a[1..*]] });
 my @left;
 my ($sum, $cnt) X= 0;
 for @all -> ($t, @a) {
