@@ -11,7 +11,7 @@ for $f.IO.lines».comb(/\d+/) -> @a is copy {
 
 my @left;
 my ($sum, $cnt) X= 0;
-race for @all.race -> ($t, @a) {
+for @all -> ($t, @a) {
     print "{++$cnt}\r";
     if calc-p1($t, @a) {
         $sum += $t;
@@ -23,7 +23,7 @@ put 'part 1: ', $sum;
 
 $cnt = 0;
 put +@left;
-race for @left.race -> ($t, @a) {
+for @left -> ($t, @a) {
     print "{++$cnt}\r";
     $sum += $t if calc-p2($t, @a);
 }
@@ -33,28 +33,15 @@ sub calc-p1($target, @a --> Bool:D) {
     return False if @a[0] > $target;
     return $target == @a[0] if +@a == 1;
 
-    my @a_ = @a.deepmap(*.clone);
-    @a_.splice(0, 2, @a[0] + @a[1]);
-    return True if calc-p1($target, @a_);
-
-    @a_ = @a.deepmap(*.clone);
-    @a_.splice(0, 2, @a[0] * @a[1]);
-    calc-p1($target, @a_)
+    calc-p1($target, [@a[0]+@a[1], |@a[2..*]]) ||
+    calc-p1($target, [@a[0]*@a[1], |@a[2..*]])
 }
 
 sub calc-p2($target, @a --> Bool:D) {
     return False if @a[0] > $target;
     return $target == @a[0] if +@a == 1;
 
-    my @a_ = @a.deepmap(*.clone);
-    @a_.splice(0, 2, @a[0] + @a[1]);
-    return True if calc-p2($target, @a_);
-
-    @a_ = @a.deepmap(*.clone);
-    @a_.splice(0, 2, @a[0] * @a[1]);
-    return True if calc-p2($target, @a_);
-
-    @a_ = @a.deepmap(*.clone);
-    @a_.splice(0, 2, @a[0] ~ @a[1]);
-    calc-p2($target, @a_)
+    calc-p2($target, [@a[0]+@a[1], |@a[2..*]]) ||
+    calc-p2($target, [@a[0]*@a[1], |@a[2..*]]) ||
+    calc-p2($target, [@a[0]~@a[1], |@a[2..*]])
 }
