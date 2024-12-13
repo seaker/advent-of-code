@@ -1,9 +1,8 @@
 #!/bin/env raku
 
-unit sub MAIN(Str $f_?);
+unit sub MAIN(Str:D $f where *.IO.f = 'input.txt');
 
-my $f = $f_ // 'input.txt';
-my ($cnt-p1, $cnt-p2) = 0, 0;
+my ($cnt-p1, $cnt-p2) X= 0;
 for $f.IO.lines».words -> @a {
     ++$cnt-p1 if @a.&safe;
     ++$cnt-p2 if @a.&safe || @a.combinations(+@a-1).map(*.&safe).any;

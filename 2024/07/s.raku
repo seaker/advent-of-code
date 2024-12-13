@@ -1,7 +1,6 @@
 #!/bin/env raku
 
-unit sub MAIN(Str $f_?);
-my $f = $f_ // 'input.txt';
+unit sub MAIN(Str:D $f where *.IO.f = 'input.txt');
 
 my @all = $f.IO.lines».comb(/\d+/).map(-> @a { [@a[0], @a[1..*]] });
 my @left;

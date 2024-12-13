@@ -1,8 +1,7 @@
 #!/bin/env raku
 
-unit sub MAIN(Str $f_?);
+unit sub MAIN(Str:D $f where *.IO.f = 'input.txt');
 
-my $f = $f_ // 'input.txt';
 my @m = $f.IO.lines.map({ .comb.Array });
 my \cols = +@m[0];
 
@@ -31,7 +30,6 @@ for @m[*;*].unique -> $c {
         $sum-p2 += +@b * +@sides;
     }
 }
-
 put 'part 1: ', $sum-p1;
 put 'part 2: ', $sum-p2;
 

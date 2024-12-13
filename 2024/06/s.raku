@@ -1,7 +1,6 @@
 #!/bin/env raku
 
-unit sub MAIN(Str $f_?);
-my $f = $f_ // 'input.txt';
+unit sub MAIN(Str:D $f where *.IO.f = 'input.txt');
 
 my @m = $f.IO.lines.map({ .comb.Array });
 my (\rows, \cols) = +@m, +@m[0];
@@ -15,7 +14,6 @@ for ^rows -> \row {
     print "{row}\r";
     for ^cols -> \col {
         my $pos = col+row*i;
-
         next unless @m[row;col] eq '.';
         next unless %walked{$pos}.any;
 

@@ -1,8 +1,6 @@
 #!/bin/env raku
 
-unit sub MAIN(Str $f_?);
-
-my $f = $f_ // 'input.txt';
+unit sub MAIN(Str:D $f where *.IO.f = 'input.txt');
 
 my $rgx = / 'mul(' (\d+) ',' (\d+) ')' || "don't()" || 'do()' /;
 my Bool $enabled = True;

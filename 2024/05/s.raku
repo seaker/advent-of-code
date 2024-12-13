@@ -1,8 +1,7 @@
 #!/bin/env raku
 
-unit sub MAIN(Str $f_?);
+unit sub MAIN(Str:D $f where *.IO.f = 'input.txt');
 
-my $f = $f_ // 'input.txt';
 my (\s1, \s2) = $f.IO.slurp.split("\n\n");
 
 my %rules;

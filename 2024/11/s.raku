@@ -1,8 +1,7 @@
 #!/bin/env raku
 
-unit sub MAIN(Str $f_?, UInt $rounds?);
+unit sub MAIN(Str:D $f where *.IO.f = 'input.txt', UInt $rounds?);
 
-my $f = $f_ // 'input.txt';
 my @a = $f.IO.words».Int;
 
 with $rounds {
