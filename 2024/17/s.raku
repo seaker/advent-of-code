@@ -48,15 +48,10 @@ class Machine {
     method run {
         while $!ip < +@!program {
             with @!program[$!ip], @!program[$!ip+1] -> (\op, \opr) {
-                #&.display;
                 &.operate(op, opr);
                 $!ip += 2 if op != 3;
             }
         }
-    }
-
-    method display {
-        put "  A {$!A} B {$!B} C {$!C} ip {$!ip} program {@.program.join(',')} output {@.output.join(',')}";
     }
 }
 
