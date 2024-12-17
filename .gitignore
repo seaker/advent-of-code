@@ -1,6 +1,5 @@
 *.swp
 *.swo
-lib/
 input.txt
 t.txt
 t0?.txt
