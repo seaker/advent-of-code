@@ -2,7 +2,6 @@
 
 unit sub MAIN(Str:D $f where *.IO.f = 'input.txt');
 
-subset Opcode  of UInt where 0 ≤ * ≤ 7;
 subset Operand of UInt where 0 ≤ * ≤ 7;
 
 class Machine {
@@ -10,7 +9,6 @@ class Machine {
     has Int $.B;
     has Int $.C;
     has UInt $.ip = 0;      # instruction pointer
-
     has @.program;
     has @.output;
 
@@ -22,7 +20,6 @@ class Machine {
             when 6       { $!C }
         }
     }
-
     method adv(Operand $n) { $!A div= 2**&.combo($n) }              # 0
     method bxl(Operand $n) { $!B +^= $n }                           # 1
     method bst(Operand $n) { $!B = &.combo($n) % 8 }                # 2
@@ -31,7 +28,6 @@ class Machine {
     method out(Operand $n) { @!output.push(&.combo($n) % 8) }       # 5
     method bdv(Operand $n) { $!B = $!A div 2**&.combo($n) }         # 6
     method cdv(Operand $n) { $!C = $!A div 2**&.combo($n) }         # 7
-
     method operate($op, $n) {
         given $op {
             when 0 { &.adv($n); }
@@ -44,7 +40,6 @@ class Machine {
             when 7 { &.cdv($n); }
         }
     }
-
     method run {
         while $!ip < +@!program {
             with @!program[$!ip], @!program[$!ip+1] -> (\op, \opr) {
@@ -65,21 +60,19 @@ with $m0.clone {
 
 my @target = $m0.program;
 my ($n, $sz) = 0, 1;
-
 while $sz ≤ +@target {
-    my $m = $m0.clone;
-    $m.A = $n;
-    $m.run;
-
-    if $m.output eqv @target.tail($sz).Array {
-        if $sz == +@target {
-            put 'part 2: ', $n;
-            exit;
+    with $m0.clone {
+        .A = $n;
+        .run;
+        if .output eqv @target.tail($sz).Array {
+            if $sz == +@target {
+                put 'part 2: ', $n;
+                last;
+            }
+            $n *= 8;
+            ++$sz;
+            next;
         }
-        $n *= 8;
-        ++$sz;
-        next;
     }
-
     ++$n;
 }
