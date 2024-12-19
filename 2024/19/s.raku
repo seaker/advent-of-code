@@ -6,25 +6,12 @@ my (\s1, \s2) = $f.IO.slurp.split("\n\n");
 my @towels = s1.comb(/<[bgruw]>+/);
 
 my %mem = '' => 1;
-my ($cnt-p1, $cnt-p2) X= 0;
-my $i = 1;
-for s2.words -> $design {
-    print "$i\r";
-    with possible($design, @towels) -> \cnt {
-        $cnt-p1 += sign(cnt);
-        $cnt-p2 += cnt;
-    }
-    ++$i;
-}
-put 'part 1: ', $cnt-p1;
-put 'part 2: ', $cnt-p2;
+my @cnts = [«+»] s2.words.map(-> $d { (.sign, $_) with possible($d) });
+put "part {$_+1}: {@cnts[$_]}" for ^2;
 
-sub possible(Str:D $s, @towels --> UInt:D) {
+sub possible(Str:D $s --> UInt:D) {
     without %mem{$s} {
-        %mem{$s} = 0;
-        for @towels.grep({ $s.starts-with($_) }) -> $t {
-            %mem{$s} += possible($s.substr($t.chars), @towels);
-        }
+        %mem{$s} = [+] @towels.map(-> $t { possible($s.substr($t.chars)) if $s.starts-with($t) });
     }
     %mem{$s}
 }
