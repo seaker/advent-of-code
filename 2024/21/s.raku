@@ -83,9 +83,7 @@ for %dp-keys.keys X %dp-keys.keys -> ($c1, $c2) {
 
 my ($cnt-p1, $cnt-p2) X= 0;
 for $f.IO.words -> $code {
-    my @a = ([X] ('A' ~ $code).comb.rotor(2 => -1).map(-> ($c1, $c2) {
-        %np2dp{$c1}{$c2}
-    }))».join;
+    my @a = ([X] ['A', |$code.comb].rotor(2 => -1).map(-> ($c1, $c2) { %np2dp{$c1}{$c2} }))».join;
     $cnt-p1 += $code.substr(0, *-1) * @a.map({ solve($_, 2)  }).min;
     $cnt-p2 += $code.substr(0, *-1) * @a.map({ solve($_, 25) }).min;
 }
