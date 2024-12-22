@@ -17,7 +17,6 @@ for $f.IO.words».Int -> $n is copy {
     }
     $cnt-p1 += $n;
 
-    #my %kept is SetHash = ().SetHash;
     my %kept is SetHash;
     for ^1997 -> $i {
         my $key = @diff[$i..$i+3].join;
