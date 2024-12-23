@@ -14,7 +14,7 @@ my @computers = %degrees.keys;
 my %t3s is SetHash;
 for @computers.grep(*.starts-with('t')) -> $t {
     for @computers.grep({ %conns{$t~$_} }).combinations(2) -> @a {
-        %t3s.set([~] [$t, |@a].sort) if %conns{[~] @a}
+        %t3s.set([$t, |@a].sort.join) if %conns{@a.join}
     }
 }
 put 'part 1: ', +%t3s;
@@ -24,7 +24,7 @@ my $max-size = 2;
 my $max-party;
 for @computers.grep({ %degrees{$_} == $max-degree }) -> $t {
     for @computers.grep({ %conns{$t~$_} }).combinations($max-size..$max-degree) -> @a {
-        if +@a > $max-size && @a.combinations(2).map({ %conns{.[0]~.[1]} }).all {
+        if +@a > $max-size && @a.combinations(2).map({ %conns{.join} }).all {
             $max-size = +@a;
             $max-party = [$t, |@a].sort.join(',');
         }
