@@ -19,10 +19,9 @@ for @computers.grep(*.starts-with('t')) -> $t {
 }
 put 'part 1: ', +%t3s;
 
-my $max-degree = %degrees.values.max;
-my $max-size = 2;
+my ($max-size, $max-degree) = 2, %degrees.values.max;
 my $max-party;
-for @computers.grep({ %degrees{$_} == $max-degree }) -> $t {
+for @computers -> $t {
     for @computers.grep({ %conns{$t~$_} }).combinations($max-size..$max-degree) -> @a {
         if +@a > $max-size && @a.combinations(2).map({ %conns{.join} }).all {
             $max-size = +@a;
