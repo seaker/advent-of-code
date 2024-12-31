@@ -1,6 +1,7 @@
 *.swp
 *.swo
 input.txt
+in.txt
 t.txt
 t0?.txt
 test.raku
