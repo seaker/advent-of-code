@@ -117,11 +117,6 @@ for @gates.grep(*.out.starts-with('z')) -> $g {
 
     if !$cin-ndx.defined {
         die "did not expect 'CB0 OR CB1 -> Carry-In(one of {$g.in.raku})' is missing";
-        #my $SMB = @gates[$smb-ndx].out;        # if Carry-In is swapped with SMB, the fault cannot be found here
-        #my $CIN = ($g.in (-) $SMB).keys.first;
-        #my $bad-CIN = @gates[$cin-ndx].out;
-        #@errors.push($CIN, $bad-CIN);
-        #next;
     }
 
     if @gates[$smb-ndx].out ne $g.in.any {
@@ -132,9 +127,5 @@ for @gates.grep(*.out.starts-with('z')) -> $g {
         @errors.push($SMB, $bad-SMB);
         next;
     }
-
-    # Now, SMB and Carry-In are both reliable, so does CB1,
-    # and CB0 is not swappable with Carry-Out, because it will short cut input with output.
-    # It is supposed no more errors will happen here according to the puzzle's descriptions.
 }
 put 'part 2: ', @errors.sort.join(',');
