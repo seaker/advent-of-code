@@ -6,11 +6,10 @@ my ($p1, $p2) X= 0;
 my $dial = 50;
 
 for $f.IO.words».trans('LR'=>'-+') -> $clicks {
-    my $dial_ = ($dial + $clicks) % 100;
-    ++$p1 if $dial_ == 0;
     $p2 += abs(($dial + $clicks - ($clicks < 0)) div 100) - ($dial == 0 && $clicks < 0);
 
-    $dial = $dial_;
+    $dial = ($dial + $clicks) % 100;
+    ++$p1 if $dial == 0;
 }
 
 put 'part 1: ', $p1;
