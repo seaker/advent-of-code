@@ -5,7 +5,8 @@ unit sub MAIN(Str:D $f where *.IO.f = 'input.txt');
 multi max-combo(@a, 1) { @a.max }
 
 multi max-combo(@a, \len) {
-    my ($ndx, $n) = @a[0..*-len].max(:kv)[^2];
+    #my ($ndx, $n) = @a[0..*-len].max(:kv)[^2];
+    my ($ndx, $n) = @a[0..*-len].max(:kv);
     $n ~ max-combo(@a[$ndx+1..*], len-1)
 }
 
