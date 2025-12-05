@@ -65,20 +65,8 @@ sub converge(*@S) {
 my ($in1, $in2) = $f.IO.split("\n\n");
 my @ranges = $in1.lines».comb(/\d+/)».Int».minmax;
 
-my $cnt-p1 = 0;
-for $in2.words -> $n {
-    for @ranges -> $r {
-        if $r.min ≤ $n ≤ $r.max {
-            ++$cnt-p1;
-            last;
-        }
-    }
-}
-put 'part 1: ', $cnt-p1;
+put 'part 1: ', +$in2.words.grep(-> $id { @ranges.map({ .min ≤ $id ≤ .max }).any });
 
-my $s = @ranges.map({ Spectrum.new(:begin(.min), :len(.max-.min+1)) });
-my $r;
-repeat {
-    ($s, $r) = converge(@$s), $s;
-} while +$r != +$s;
+my ($s, $r) = @ranges.map({ Spectrum.new(:begin(.min), :len(.max-.min+1)) }), [];
+($s, $r) = converge(@$s), $s while +$r != +$s;
 put 'part 2: ', @$r».len.sum;
