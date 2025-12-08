@@ -3,7 +3,7 @@
 unit sub MAIN(Str:D $f where *.IO.f = 'input.txt', UInt:D $count = 1000);
 
 my %boxes is SetHash = $f.IO.lines;
-my %dists = %boxes.keys.combinations(2).map(-> ($a,$b) { "$a;$b" => ($a.split(',') «-» $b.split(',')).map(*²).sum });
+my %dists = %boxes.keys.combinations(2).map(-> ($a,$b) { "$a;$b" => ($a.split(',') «-» $b.split(','))».².sum });
 
 my @circuits;
 my $cnt = 0;
